@@ -5,8 +5,8 @@ $.ajaxSetup({
     async: false
 });
 
-var serviceurl = "http://localhost:9090/egitim/services/";
-var mainurl = "http://localhost:9090/egitim/";
+var serviceurl = "http://192.168.0.150:8059/egitim/services/";
+var mainurl = "http://192.168.0.150:8059/egitim/";
 
 /*var serviceurl = "http://192.168.0.150:8059/egitim/services/";
 var mainurl = "http://192.168.0.150:8059/egitim/";*/
