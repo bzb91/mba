@@ -11,13 +11,15 @@ $.ajaxSetup({
 var serviceurl = "http://192.168.0.150:8059/egitim/services/";
 var mainurl = "http://192.168.0.150:8059/egitim/";
 function postOgrenci(param1,param2,param3,param4){
-
+    logyaz("param1",param1);
     $.getJSON( serviceurl+"?method=postOgrenci&param1="+param1+"&param2="+param2+"&param3="+param3+"&param4="+param4, function( data ) {
 
         $.each(data, function (i, item) {
 
             window.localStorage.setItem('postsuccess',item.postsuccess);
             window.localStorage.setItem('ogrenci_id',item.ogrenci_id);
+            logyaz("postsuccess",item.postsuccess);
+            logyaz("mainurl",mainurl);
             var postsuccess=window.localStorage.getItem('postsuccess');
             console.log(postsuccess);
 
@@ -108,27 +110,29 @@ function postVideoIzlenme(param1,param2){
 
 
 }
-function TumVideolarIzlendimi(param1){
+function TumVideolarIzlendimi(param1) {
 
-    $.getJSON( serviceurl+"?method=TumVideolarIzlendimi&param1="+param1, function( data ) {
+    $.getJSON(serviceurl + "?method=TumVideolarIzlendimi&param1=" + param1, function (data) {
 
         $.each(data, function (i, item) {
-            window.localStorage.setItem('postsuccess',item.postsuccess);
-            var postsuccess=window.localStorage.getItem('postsuccess');
+            window.localStorage.setItem('postsuccess', item.postsuccess);
+            var postsuccess = window.localStorage.getItem('postsuccess');
             //console.log(postsuccess);
-            if(postsuccess == 1){
+            if (postsuccess == 1) {
                 //window.location.href = mainurl+"lesson_videos.html";
                 $("#devam").show();
                 $("#fullscreen").hide();
                 $("#video_aciklama").html("Tüm ders videolarını izlediniz, dersi bitirip teste geçebilirsiniz.");
                 return true;
             }
-            else{
+            else {
                 return false;
             }
 
         });
     });
-
-
+}
+function logyaz(name,value){
+    console.log(name);
+    $("#log").text($("#log").html() + name + " : " +value + "<br/>");
 }
