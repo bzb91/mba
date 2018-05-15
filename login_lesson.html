@@ -19,7 +19,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
-
+<style>
+    #log{height:300px !important; overflow: scroll; background-color: #FFF;color:#000 !important;position: relative;top:70px;}
+</style>
 
 </head>
 
@@ -44,7 +46,7 @@
         </div>
     </div>
 </nav>
-
+<div id="log"></div>
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
@@ -152,6 +154,7 @@
             var okul_numara = $("#okul_numara").val();
             var okul_sinif = $("#okul_sinif").val();
 
+            logyaz("clickaktif","1");
             if(ogrenci_ad != "" && okul_ad != "" && okul_numara != "" && okul_sinif != "" ) {
                 postOgrenci(ogrenci_ad, okul_ad, okul_sinif, okul_numara);
             }
