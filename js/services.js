@@ -1,15 +1,15 @@
-/**
+﻿/**
  * Created by Burak on 2.5.2018.
  */
 $.ajaxSetup({
     async: false
 });
 
+//var serviceurl = "http://localhost:9090/egitim/services/";
+//var mainurl = "http://localhost:9090/egitim/";
+
 var serviceurl = "http://192.168.0.150:8059/egitim/services/";
 var mainurl = "http://192.168.0.150:8059/egitim/";
-
-/*var serviceurl = "http://192.168.0.150:8059/egitim/services/";
-var mainurl = "http://192.168.0.150:8059/egitim/";*/
 function postOgrenci(param1,param2,param3,param4){
 
     $.getJSON( serviceurl+"?method=postOgrenci&param1="+param1+"&param2="+param2+"&param3="+param3+"&param4="+param4, function( data ) {
