@@ -14,9 +14,9 @@ function postOgrenci(param1,param2,param3,param4){
     logyaz("param1",param1);
     logyaz("url",serviceurl+"?method=postOgrenci&param1="+param1+"&param2="+param2+"&param3="+param3+"&param4="+param4);
     $.getJSON( serviceurl+"?method=postOgrenci&param1="+param1+"&param2="+param2+"&param3="+param3+"&param4="+param4, function( data ) {
-
+        logyaz("data", data);
         $.each(data, function (i, item) {
-
+            logyaz("postsuccess", item.postsuccess);
             window.localStorage.setItem('postsuccess',item.postsuccess);
             window.localStorage.setItem('ogrenci_id',item.ogrenci_id);
             logyaz("postsuccess",item.postsuccess);
