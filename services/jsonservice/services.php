@@ -27,12 +27,10 @@ switch ($method) {
         break;
 
     case "getBostaVideoGetir":
-        $param1 = $_REQUEST['param1']; //Öğrenci id
+        $param1 = $_REQUEST['param1'];
         $param2 = $_REQUEST['param2']; //Monitör'e giden video aktif
-        $param3 = $_REQUEST['param3']; //Video id
         $sql_layer = "select * from video where video_bostami = 1";
         $q_layers = mysqli_query($conn,$sql_layer) or die("Connect failed: %s\n". $conn -> error);
-
         $resultArray = array();
         $temp = array();
         $control = 0;
@@ -48,18 +46,11 @@ switch ($method) {
         else if($localIP == "192.168.0.205"){
             $control_videoid = 4;
         }
-        else if($localIP == "::1"){
-            $control_videoid = 4;
-        }
-        $qrvideoid = $_GET['video_id'];
-        if($qrvideoid != ""){
-            print $qrvideoid;
-        }
 
         while ($row = mysqli_fetch_array($q_layers,MYSQLI_ASSOC)) {
             $video_izlendimi = 0;
             //print($control_videoid." ".$row["video_id"]);
-            if($control_videoid == 0 || ($control_videoid != $row["video_id"] && $param2 != 1)) {
+            if($control_videoid != $row["video_id"] && $param2 != 1) {
                 $sql_sub = "select * from videoizlenme where ogrenci_id = '".$param1."'";
                 $q_sub = mysqli_query($conn,$sql_sub) or die("Connect failed: %s\n". $conn -> error);
                 //print json_encode($row);
@@ -121,9 +112,8 @@ switch ($method) {
 
         //mysqli_close($conn);
 
-        if(($video_id != "" && $video_id != 0) || $param3 != "") {
-            $video_id = $param3;
-            $sql_layer = "update video set video_bostami = 0,ogrenci_id='".$param1."' where video_id=" . $video_id;
+        if($video_id != "" && $video_id != 0) {
+            $sql_layer = "update video set video_bostami = 0 where video_id=" . $video_id;
             $q_layers = mysqli_query($conn, $sql_layer) or die("Connect failed: %s\n" . $conn->error);
         }
         //print "fggfd".$video_id;
@@ -133,7 +123,7 @@ switch ($method) {
 
     case "getVideoyuSifirla":
         $param1 = $_REQUEST['param1'];
-        $sql_layer = "update video set video_bostami = 1,ogrenci_id = NULL where video_id=".$param1;
+        $sql_layer = "update video set video_bostami = 1 where video_id=".$param1;
         $q_layers = mysqli_query($conn,$sql_layer) or die("Connect failed: %s\n". $conn -> error);
         $rows = mysqli_affected_rows($conn);
         mysqli_close($conn);
@@ -171,5 +161,4 @@ switch ($method) {
 
         echo '[{ "postsuccess": "' . $izlendi . '"}]';
         break;
-
 }
