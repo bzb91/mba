@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     id          = "com.phonegap.example"
     versionCode = "10"
     version     = "1.0.0" >
@@ -17,7 +18,11 @@
       Burak Z. BENLI
   </author>
   <platform name="ios" />
-  <platform name="android" />
+    <platform name="android">
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA" />
+        </config-file>
+    </platform>
   
    <access origin="*"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
