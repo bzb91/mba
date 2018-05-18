@@ -17,7 +17,7 @@
    <author href="https://build.phonegap.com" email="support@phonegap.com">
        Burak Z. BENLI
    </author>
-    
+
     <platform name="ios" />
     <platform name="android">
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -25,7 +25,7 @@
         </config-file>
     </platform>
 
-    <gap:plugin name="org.apache.cordova.core.camera" />
+    <plugin name="cordova-plugin-camera" />
     <access origin="*"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
     <!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
