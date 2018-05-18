@@ -140,10 +140,14 @@ function logyaz(name,value){
 }
 
 function redirect(uri) {
-    if(navigator.userAgent.match(/Android/i))
-        document.location=uri;
-    else
+    if(navigator.userAgent.match(/Android/i)) {
+        logyaz("ANDROID", "EVET");
+        document.location = uri;
+    }
+    else{
+        logyaz("ANDROID","HAYIR");
         window.location.replace(uri);
+    }
 }
 
 
