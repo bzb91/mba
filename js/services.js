@@ -26,7 +26,7 @@ function postOgrenci(param1,param2,param3,param4){
 
             if(postsuccess == 1){
                 //window.location.href = mainurl+"lesson_qrcode_tablet.html";
-                redirect(mainurl+"lesson_qrcode_tablet.html");
+                redirect("lesson_qrcode_tablet.html");
             }
         });
     });
