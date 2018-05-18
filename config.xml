@@ -17,8 +17,7 @@
    <author href="https://build.phonegap.com" email="support@phonegap.com">
        Burak Z. BENLI
    </author>
-
-    <preference name="phonegap-version" value="3.0.0" />
+    
     <platform name="ios" />
     <platform name="android">
         <config-file target="AndroidManifest.xml" parent="/manifest">
