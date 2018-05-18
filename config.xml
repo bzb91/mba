@@ -8,23 +8,26 @@
 
 <!-- versionCode is optional and Android only -->
 
-  <name>MBA</name>
+   <name>MBA</name>
 
-  <description>
+   <description>
       Müslüman Bilim Adamları Uygulaması
-  </description>
+   </description>
 
-  <author href="https://build.phonegap.com" email="support@phonegap.com">
-      Burak Z. BENLI
-  </author>
-  <platform name="ios" />
+   <author href="https://build.phonegap.com" email="support@phonegap.com">
+       Burak Z. BENLI
+   </author>
+
+    <preference name="phonegap-version" value="3.0.0" />
+    <platform name="ios" />
     <platform name="android">
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.CAMERA" />
         </config-file>
     </platform>
-  
-   <access origin="*"/>
+
+    <gap:plugin name="org.apache.cordova.core.camera" />
+    <access origin="*"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
     <!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
     <plugin name="cordova-plugin-whitelist" version="1" />
