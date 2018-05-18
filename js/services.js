@@ -25,7 +25,8 @@ function postOgrenci(param1,param2,param3,param4){
             console.log(postsuccess);
 
             if(postsuccess == 1){
-                window.location.href = mainurl+"lesson_qrcode_tablet.html";
+                //window.location.href = mainurl+"lesson_qrcode_tablet.html";
+                redirect(mainurl+"lesson_qrcode_tablet.html");
             }
         });
     });
@@ -137,3 +138,12 @@ function logyaz(name,value){
     console.log(name);
     $("#log").text($("#log").html() + name + " : " +value + "<br/>");
 }
+
+function redirect(uri) {
+    if(navigator.userAgent.match(/Android/i))
+        document.location=uri;
+    else
+        window.location.replace(uri);
+}
+
+
