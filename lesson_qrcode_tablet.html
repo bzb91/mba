@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="js/servicejs/instascan/style.css">
 
 
+
 </head>
 
 <body>
@@ -49,40 +50,14 @@
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
-            <h1 class="masthead-heading mb-0">Öğrenci Bilgileri</h1>
-            <h2 class="masthead-subheading mb-0">lütfen aşağıdaki bilgileri doldurunuz</h2>
+            <h1 id="codeh1" class="masthead-heading mb-0">Ders Kodu</h1>
+            <h2 id="codeh2" class="masthead-subheading mb-0">lütfen aşağıdaki kutucuğa ekranda gördüğünüz kodu giriniz ve doğrula butonuna basınız.</h2>
 
             <!--<a href="#" class="btn btn-success btn-xl rounded-pill mt-5" id="ogrenci_kaydet">QR OKUNDU</a>-->
         </div>
         <div class="container">
-            <div id="app">
-                <div class="sidebar">
-                    <section class="cameras">
-                        <h2>Cameras</h2>
-                        <ul>
-                            <li v-if="cameras.length === 0" class="empty">No cameras found</li>
-                            <li v-for="camera in cameras">
-                                <span v-if="camera.id == activeCameraId" :title="formatName(camera.name)" class="active">{{ formatName(camera.name) }}</span>
-                                <span v-if="camera.id != activeCameraId" :title="formatName(camera.name)">
-                <a @click.stop="selectCamera(camera)">{{ formatName(camera.name) }}</a>
-              </span>
-                            </li>
-                        </ul>
-                    </section>
-                    <section class="scans">
-                        <h2>Scans</h2>
-                        <ul v-if="scans.length === 0">
-                            <li class="empty">No scans yet</li>
-                        </ul>
-                        <transition-group name="scans" tag="ul">
-                            <li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
-                        </transition-group>
-                    </section>
-                </div>
-                <div class="preview-container">
-                    <video id="preview"></video>
-                </div>
-            </div>
+            <input id="unic_code" class="form-control btn-xl rounded-pill mt-5" placeholder="Ders Kodu"/>
+            <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5" id="dogrula">DOĞRULA</a>
         </div>
     </div>
 
@@ -160,26 +135,38 @@
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/servicejs/qrcode/jquery.qrcode.min.js"></script>
 <script src="js/services.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
-<script src="js/servicejs/instascan/app.js"></script>
+
 <script>
     jQuery(document).ready(function() {
-
-/*        window.localStorage.removeItem('postsuccess');
-        window.localStorage.removeItem('ogrenci_id');
-        window.localStorage.removeItem('video_id');
-        window.localStorage.removeItem('sure');*/
-
-
-        $("#ogrenci_kaydet").on('click',function (e) {
-            window.location.href = "/lesson_videos.html";
+        window.localStorage.removeItem('videoaktif');
+        $("#dogrula").on('click',function (e) {
+            var ogrenci_id=window.localStorage.getItem('ogrenci_id');
+            console.log(ogrenci_id);
+            if(ogrenci_id == undefined || ogrenci_id == "")
+            {
+                redirect("login_lesson.html");
+            }
+            else {
+                if (!TumVideolarIzlendimi(ogrenci_id)) {
+                    var unic_code = $("#unic_code").val();
+                    if(unic_code != "" ) {
+                        postVideoIzlemeAktif(unic_code, ogrenci_id);
+                        var videoaktif = window.localStorage.getItem('videoaktif');
+                        console.log(videoaktif);
+                        if (videoaktif == 1) {
+                            redirect("lesson_voices.html");
+                        } else {
+                            console.log('aaa');
+                            getBostaVideoGetir(ogrenci_id,"");
+                        }
+                    }
+                    else{
+                        alert("Ders kodu alanı boş bırakılamaz.")
+                    }
+                }
+            }
         });
-        //getBostaVideoGetir("",1);
-        var video_id = window.localStorage.getItem('video_id');
-        console.log("videoo "+video_id);
-        $('#output').qrcode(mainurl+"lesson_videos_tablet.html?video_id="+video_id);
+
 
     });
 </script>

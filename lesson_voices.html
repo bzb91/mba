@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Derse Giriş</title>
+    <title>Müslüman Bilim Adamları Eğitimi Uygulaması</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,11 +20,9 @@
     <!-- Custom styles for this template -->
     <link href="css/one-page-wonder.min.css" rel="stylesheet">
 
-
 </head>
 
-<body background="#000">
-
+<body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
@@ -48,18 +46,17 @@
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
-            <h1 id="h1baslik" class="masthead-heading mb-0"></h1>
-            <h2 class="masthead-subheading mb-0">Ekranda gördüğünüz bu kodu, tabletinize yazarak uygulamayı başlatabilirsiniz.</h2>
-
-            <!--<a href="#" class="btn btn-success btn-xl rounded-pill mt-5" id="ogrenci_kaydet">QR OKUNDU</a>-->
-        </div>
-        <div class="container">
-            <div id="output"></div>
+            <h1 id="voice_h1" class="masthead-heading mb-0"></h1>
+            <h2 id="voice_h2" class="masthead-subheading mb-0"></h2>
+            <div id="voices"></div>
         </div>
     </div>
-
-
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
 </header>
+
 
 <!-- Footer -->
 <footer class="py-5 bg-black">
@@ -72,30 +69,38 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/servicejs/qrcode/jquery.qrcode.min.js"></script>
 <script src="js/services.js"></script>
 <script>
     jQuery(document).ready(function() {
+        var ogrenci_id=window.localStorage.getItem('ogrenci_id');
 
-        var video_id = getParameterByName('video_id');
-        var unic_code = getParameterByName('unic');
 
-        if(unic_code == undefined || unic_code== ""){
-            getVideoyuSifirla("");
+
+        console.log(ogrenci_id);
+        getVideoVoices(ogrenci_id);
+
+        var video_id = window.localStorage.getItem('video_id');
+        var sure = window.localStorage.getItem('sure') * 1000;
+
+        var x = document.getElementById("myAudio");
+        playAudio();
+        function playAudio() {
+            x.play();
         }
-        else {
-            window.localStorage.setItem('unic_code', unic_code);
-            $('#h1baslik').html(unic_code);
-            getUnicCode(video_id);
-            setTimeout(function () {
-                window.location.reload(1);
-            }, 5000);
+
+        setTimeout(function () {
+         postVideoIzlenme(ogrenci_id, video_id); //Burada kaldım, videoyu bir kere izleyen bir daha izleyemez.
+         }, sure);
+        setTimeout(function (){
+            //getVideoyuSifirla(video_id);
+            //window.location.reload();
+            window.localStorage.removeItem('video_id');
+            window.localStorage.removeItem('sure');
+            redirect("lesson_qrcode_tablet.html");
         }
-
-
+        , sure);
     });
+
 </script>
-
 </body>
-
 </html>
