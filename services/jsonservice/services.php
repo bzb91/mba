@@ -42,13 +42,19 @@ switch ($method) {
         $control_videoid = 0;
         $localIP = $_SERVER['REMOTE_ADDR'];
 
-        if ($localIP == "192.168.0.126") {
+/*        if ($localIP == "192.168.0.126") {
             $control_videoid = 8;
         } else if ($localIP == "192.168.0.172") {
             $control_videoid = 6;
         } else if ($localIP == "192.168.0.205") {
             $control_videoid = 4;
+        }*/
+        $sql_ip = "select * from video where bagli_ip = '" . $localIP . "'";
+        $q_ip = mysqli_query($conn, $sql_ip) or die("Connect failed: %s\n" . $conn->error);
+        while ($row_ip = mysqli_fetch_array($q_ip, MYSQLI_ASSOC)) {
+            $control_videoid = $row_ip["video_id"];
         }
+
 
         while ($row = mysqli_fetch_array($q_layers, MYSQLI_ASSOC)) {
             $video_izlendimi = 0;
@@ -140,13 +146,20 @@ switch ($method) {
 
         $localIP = $_SERVER['REMOTE_ADDR'];
 
-        if ($localIP == "192.168.0.126") {
+/*        if ($localIP == "192.168.0.126") {
             $control_videoid = 8;
         } else if ($localIP == "192.168.0.172") {
             $control_videoid = 6;
         } else if ($localIP == "192.168.0.205") {
             $control_videoid = 4;
+        }*/
+
+        $sql_ip = "select * from video where bagli_ip = '" . $localIP . "'";
+        $q_ip = mysqli_query($conn, $sql_ip) or die("Connect failed: %s\n" . $conn->error);
+        while ($row_ip = mysqli_fetch_array($q_ip, MYSQLI_ASSOC)) {
+            $control_videoid = $row_ip["video_id"];
         }
+
 
         $param1 = $_REQUEST['param1'];
         $param2 = $_REQUEST['param2'];
