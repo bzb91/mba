@@ -23,7 +23,7 @@
 
 </head>
 
-<body background="#000">
+<body background="#000" onload="window.setTimeout('document.getElementById(\'criimlaunch\').click();', 1000);">
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -54,7 +54,7 @@
             <!--<a href="#" class="btn btn-success btn-xl rounded-pill mt-5" id="ogrenci_kaydet">QR OKUNDU</a>-->
         </div>
         <div class="container">
-            <div id="output"></div>
+            <div id="output" style="background-color: #FFF ; width:500px; height: 500px;text-align: center;"></div>
         </div>
     </div>
 
@@ -86,6 +86,7 @@
         else {
             window.localStorage.setItem('unic_code', unic_code);
             $('#h1baslik').html(unic_code);
+            $("#output").qrcode({width: 400,height: 400,text: unic_code});
             getUnicCode(video_id);
             setTimeout(function () {
                 window.location.reload(1);
@@ -93,9 +94,43 @@
         }
 
 
+
+
     });
 </script>
+<script>
+    var macroCode = '';
+    macroCode += 'VERSION BUILD=1002 RECORDER=CR\n';
+    //macroCode += 'URL GOTO=http://localhost:9090/egitim/lesson_videos.html#\n';
+    macroCode += 'EVENT TYPE=KEYPRESS SELECTOR="HTML>BODY" KEY=122\n';
+    //macroCode += 'EVENT TYPE=KEYDOWN SELECTOR="HTML>BODY" KEY=18 MODIFIERS="alt"\n';
 
+    function launchMacro()
+    {
+        try
+        {
+            console.log('aaa');
+            if(!/^(?:chrome|https?|file)/.test(location))
+            {
+                alert('iMacros: Open webpage to run a macro.');
+                return;
+            }
+            console.log(macroCode);
+            var macro = {};
+            macro.source = macroCode;
+            macro.name = '#Current.iim';
+            console.log('cccc');
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent('iMacrosRunMacro', true, true, macro);
+            window.dispatchEvent(evt);
+        }
+        catch(e)
+        {
+            alert('iMacros Bookmarklet error: '+e.toString());
+        };
+    }
+</script>
+<a id="criimlaunch" href="javascript:launchMacro();">Launch CR iMacros</a>
 </body>
 
 </html>

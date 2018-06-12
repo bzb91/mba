@@ -85,7 +85,9 @@
         var x = document.getElementById("myAudio");
         playAudio();
         function playAudio() {
+            setTimeout(function () {
             x.play();
+            }, 5000);
         }
 
         setTimeout(function () {
